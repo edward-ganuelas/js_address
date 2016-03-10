@@ -40,10 +40,14 @@ $(document).ready(function(){
    }
    
    function populateSelect(data){
-        data.forEach(function(element) {
-            selectHtml+="<option value='"+element.id+"'>"+element.name+" "+element.telephone+"</option>";
-        }, this);
-       $('#address_book').empty().append(selectHtml);
+        // data.forEach(function(element) {
+            // selectHtml+="<option value='"+element.id+"'>"+element.name+" "+element.telephone+"</option>";
+        // }, this);
+        for(i=0; i<data.length; i++){
+            // console.log(data[i]['name']);
+            selectHtml+= "<option value='"+data[i]['id']+"'>"+data[i]['name']+" "+data[i]['telephone']+"</option>";
+        }
+        $('#address_book').empty().append(selectHtml);
    }
 
    function sortSelect(){
