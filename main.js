@@ -5,7 +5,7 @@ $(document).ready(function(){
    $("#form_book").submit(function(e){
       e.preventDefault();
       var formData= {
-          name: $('input#name').val(),
+          name: $('input#name').val().toUpperCase(),
           telephone: $('input#telephone').val()
       }
       
@@ -31,6 +31,7 @@ $(document).ready(function(){
           console.log(data);
         });
    });
+   $('input#sort').on('click',function(){sortSelect()});
    
    function getData(){
        $.ajax({url: "address.json"}).done(function(data){
@@ -43,6 +44,17 @@ $(document).ready(function(){
             selectHtml+="<option value='"+element.id+"'>"+element.name+" "+element.telephone+"</option>";
         }, this);
        $('#address_book').empty().append(selectHtml);
+   }
+
+   function sortSelect(){
+    $.ajax({url: "address.json"}).done(function(data){
+        data.sort(function(a,b){
+            return (a.name < b.name) ? -1: 1;
+        })
+        selectHtml=null;
+        populateSelect(data);
+       }); 
+
    }
    
 });
