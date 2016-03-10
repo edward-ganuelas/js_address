@@ -9,11 +9,27 @@ $(document).ready(function(){
           telephone: $('input#telephone').val()
       }
       
-      $.post("server.php", formData);
-      selectHtml = null;
-      getData();
-      $('input#name').val("");
-      $('input#telephone').val("");
+      $.post("server.php", formData).success(function(data){
+        selectHtml = null;
+        getData();
+        $('input#name').val("");
+        $('input#telephone').val("");
+      });
+      
+   });
+   
+   $('input#delete').on('click',function(){
+      var delValue = $('select#address_book').val(); 
+      console.log(delValue);
+      var formData = {
+          del: true,
+          id: delValue
+      }
+      $.post("server.php", formData).success(function(data){
+          selectHtml = null;
+          getData();
+          console.log(data);
+        });
    });
    
    function getData(){
