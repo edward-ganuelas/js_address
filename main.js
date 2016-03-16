@@ -1,5 +1,19 @@
 $(document).ready(function(){
    var selectHtml="";
+   vue = new Vue({
+       el: '#form_book',
+       data: {
+           entries: '',
+           selected: '1'
+       },
+       methods:{
+           sortSelect: function(event){
+               this.entries.sort(function(a,b){
+               return (a.name < b.name) ? -1: 1;
+            })
+           }
+       }
+   });
    getData();
    
    $("#form_book").submit(function(e){
@@ -31,12 +45,13 @@ $(document).ready(function(){
           console.log(data);
         });
    });
-   $('input#sort').on('click',function(){sortSelect()});
+//    $('input#sort').on('click',function(){sortSelect()});
    
    function getData(){
        $.ajax({url: "address.json"}).done(function(data){
-        populateSelect(data);
-       }); 
+        // populateSelect(data);
+            vue.entries = data;
+        }); 
    }
    
    function populateSelect(data){
@@ -46,15 +61,15 @@ $(document).ready(function(){
         $('#address_book').empty().append(selectHtml);
    }
 
-   function sortSelect(){
-    $.ajax({url: "address.json"}).done(function(data){
-        data.sort(function(a,b){
-            return (a.name < b.name) ? -1: 1;
-        })
-        selectHtml=null;
-        populateSelect(data);
-       }); 
+//    function sortSelect(){
+//     $.ajax({url: "address.json"}).done(function(data){
+//         data.sort(function(a,b){
+//             return (a.name < b.name) ? -1: 1;
+//         })
+//         selectHtml=null;
+//         populateSelect(data);
+//        }); 
 
-   }
+//    }
    
 });

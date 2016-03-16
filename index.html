@@ -17,12 +17,18 @@
                 <input type="text" name="telephone" id="telephone" required> 
             </label>
             <input type="Submit" value="Add" id="add">
-            <select name="address_book" id="address_book"></select>
-            <input type="button" value="Sort" id="sort">
+            <select name="address_book" id="address_book" v-model="selected">
+                <option v-for="option in entries" v-bind:value="option.id">
+                    {{option.name}} {{option.telephone}}
+                </option>
+            </select>
+            <input type="button" value="Sort" id="sort" v-on:click="sortSelect">
             <input type="button" value="Delete" id="delete">
         </form>
+      
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/vue/1.0.17/vue.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
